@@ -1,0 +1,59 @@
+<form [formGroup] = 'myForm' (ngSubmit)="login()">
+    <div *ngIf="myForm.errors" class="alert alert-danger">
+        The username or password is invalid.
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+            formControlName = "username"
+            id="username" 
+            type="text" 
+            class="form-control">
+        <div *ngIf = "username.pending">Checking Uniqueness</div>
+        <div class="alert alert-danger" 
+            *ngIf="!username.valid && username.touched">
+            
+            <div *ngIf = "username.errors?.required">
+                Username is mandatory
+            </div>
+            <div *ngIf = "username.hasError('minlength')">
+                Minimum {{username.errors.minlength.requiredLength}} characters necessary
+            </div>
+            <div *ngIf = "username.hasError('cannotContainSpace')">
+                Space is not allowed
+            </div>
+            <div *ngIf = "username.hasError('findTheRequiredLength')">
+                My custom number field:: Please enter more than {{username.errors.findTheRequiredLength.reqLength}} characters
+            </div>
+            <div *ngIf = "username.hasError('checkUniqueName')">
+                Name alredy exists
+            </div>
+            
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+            formControlName = "password"
+            id="password" 
+            type="text" 
+            class="form-control">
+    </div>
+    <div>
+        <label for="interests">Enter your interest and press enter</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            #interests 
+            (keyup.enter) = "interestsArray(interests)">
+        <ul class="list-group">
+            <li 
+                class="list-group-item"
+                (click) = "remove(interest)"
+                *ngFor = "let interest of myForm.get('interests').controls">
+                {{interest.value}}
+            </li>
+        </ul>
+    </div>
+    <button class="btn btn-primary" type="submit">Sign Up</button>
+</form>
