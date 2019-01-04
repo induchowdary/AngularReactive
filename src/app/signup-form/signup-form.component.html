@@ -39,6 +39,20 @@
             type="text" 
             class="form-control">
     </div>
+    <div class = "form-group" formGroupName="details">
+        <label for="address">address</label> 
+        <input 
+            formControlName = "address"
+            id="address" 
+            type="text" 
+            class="form-control">
+        <label for="contact">contact</label> 
+        <input 
+            formControlName = "contact"
+            id="contact" 
+            type="text" 
+            class="form-control">
+    </div>
     <div>
         <label for="interests">Enter your interest and press enter</label>
         <input 
@@ -50,10 +64,11 @@
             <li 
                 class="list-group-item"
                 (click) = "remove(interest)"
-                *ngFor = "let interest of myForm.get('interests').controls">
+                *ngFor = "let interest of interestts.controls">
                 {{interest.value}}
             </li>
         </ul>
     </div>
+    <br>
     <button class="btn btn-primary" type="submit">Sign Up</button>
 </form>
